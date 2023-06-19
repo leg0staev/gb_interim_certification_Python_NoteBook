@@ -1,0 +1,5 @@
+NotesManager.py
+.venv/
+.idea/
+__pycache__
+.gitignore
