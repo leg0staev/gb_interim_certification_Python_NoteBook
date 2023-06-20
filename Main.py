@@ -11,6 +11,10 @@ if __name__ == '__main__':
         match user_choice:
             case '1':
                 presenter.add_note()
+            case '2':
+                presenter.save_notes_to_file()
+            case '3':
+                presenter.load_notes_from_file()
             case '0':
                 RUN = False
                 presenter.display('Программа завершила работу. До свидания!')

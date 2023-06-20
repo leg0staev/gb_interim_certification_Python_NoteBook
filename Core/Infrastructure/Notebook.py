@@ -1,3 +1,6 @@
+import json
+from datetime import datetime
+
 from Core.Models.Note import Note
 
 
@@ -18,3 +21,26 @@ class Notebook:
 			if note.get_id() == idx:
 				return note
 		return None
+
+	def load_notes_db_from_file(self) -> str:
+		try:
+			with open(self.db_file_name, 'r') as file:
+				data = json.load(file)
+				if data:
+					for note_data in data:
+						id = note_data["id"]
+						title = note_data["title"]
+						body = note_data["body"]
+						date_created = datetime.fromisoformat(note_data["date_created"])
+						date_modified = datetime.fromisoformat(note_data["date_modified"])
+						note = Note(id, title, body, date_created, date_modified)
+						self.notes_list.append(note)
+			return 'Библиотека записок загружена!'
+		except FileNotFoundError:
+			return f'Файл {self.db_file_name} не найден'
+
+	def save_notes_db_to_file(self) -> None:
+		serialized_notes = [note.serialize() for note in self.notes_list]
+
+		with open(self.db_file_name, 'w') as file:
+			json.dump(serialized_notes, file, indent=4)
