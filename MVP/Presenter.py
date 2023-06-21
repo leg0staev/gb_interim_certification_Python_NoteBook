@@ -69,3 +69,14 @@ class Presenter:
 		for note in notes_list:
 			self.view.display(str(note))
 		self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
+
+	def delete_note_by_id(self) -> None:
+		self.view.console_clear()
+		try:
+			id_from_user: int = int(self.view.get_value('введите ID заметки для удаления: '))
+			self.view.display(self.model.get_current_book()
+										.remove_note_by_id(id_from_user))
+			self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
+		except:
+			self.view.display('Заметки с таким ID нет..')
+			self.view.user_waiting('Нажмите Enter чтобы продолжить..')
