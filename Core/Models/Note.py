@@ -1,23 +1,33 @@
-import json
 import datetime
 
 
 class Note:
 	def __init__(self, id: int,
-						title: str,
-						body: str,
-						date_created: datetime,
-						date_modified: datetime):
+					title: str,
+					body: str,
+					date_created: datetime,
+					date_modified: datetime):
 		self.id = id
 		self.title = title
 		self.body = body
 		self.date_created = date_created
 		self.date_modified = date_modified
 
+	def __str__(self):
+		return  "* * *\n"\
+				f"ID: {self.id}\n" \
+				"--\n" \
+				f"Название: {self.title}\n" \
+				"--\n"\
+				f"Заметка: {self.body}\n" \
+				"--\n" \
+				f"Дата создания: {self.date_created}\n" \
+				f"Дата изменения: {self.date_modified}\n" \
+				"* * *\n"
 	def get_id(self) -> int:
 		return self.id
 
-	def set_id(self, new_id: int)-> None:
+	def set_id(self, new_id: int) -> None:
 		self.id = new_id
 
 	def get_title(self) -> str:

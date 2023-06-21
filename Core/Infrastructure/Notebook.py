@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from typing import Any
 
 from Core.Models.Note import Note
 
@@ -44,3 +45,12 @@ class Notebook:
 
 		with open(self.db_file_name, 'w') as file:
 			json.dump(serialized_notes, file, indent=4)
+
+	def get_note_by_id(self, note_id: int) -> Note | str:
+		for note in self.notes_list:
+			if note.get_id() == note_id:
+				return note
+		return f'заметки с id "{note_id}" не существует'
+
+	def get_notes_list(self) -> list[Note]:
+		return self.notes_list
