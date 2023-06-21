@@ -21,6 +21,8 @@ if __name__ == '__main__':
                 presenter.show_all_notes()
             case '6':
                 presenter.delete_note_by_id()
+            case '7':
+                presenter.find_notes_by_date()
             case '0':
                 RUN = False
                 presenter.display('Программа завершила работу. До свидания!')

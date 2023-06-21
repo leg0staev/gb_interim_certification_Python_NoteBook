@@ -45,7 +45,7 @@ class Notebook:
 		with open(self.db_file_name, 'w') as file:
 			json.dump(serialized_notes, file, indent=4)
 
-	def get_note_by_id(self, note_id: int) -> Note | str:
+	def find_note_by_id(self, note_id: int) -> Note | str:
 		for note in self.notes_list:
 			if note.get_id() == note_id:
 				return note
@@ -60,3 +60,10 @@ class Notebook:
 				self.notes_list.remove(note)
 				return f'заметка с id "{note_id}" удалена!'
 		return f'заметки с id "{note_id}" не существует'
+
+	def find_notes_by_date(self, date: datetime.date) -> list[Note]:
+		result_notes_list: list[Note] = []
+		for note in self.notes_list:
+			if note.date_created.date() == date:
+				result_notes_list.append(note)
+		return result_notes_list
