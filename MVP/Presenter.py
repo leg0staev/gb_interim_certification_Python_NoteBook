@@ -57,7 +57,7 @@ class Presenter:
 		try:
 			id_from_user: int = int(self.view.get_value('введите ID заметки для поиска: '))
 			self.view.display(self.model.get_current_book()
-										.get_note_by_id(id_from_user))
+										.find_note_by_id(id_from_user))
 			self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 		except:
 			self.view.display('Заметки с таким ID нет..')
@@ -79,4 +79,25 @@ class Presenter:
 			self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 		except:
 			self.view.display('Заметки с таким ID нет..')
+			self.view.user_waiting('Нажмите Enter чтобы продолжить..')
+
+	def find_notes_by_date(self) -> None:
+		self.view.console_clear()
+		try:
+			date_str: str = self.view.get_value('Введите дату в формате ГГГГ-ММ-ДД: ')
+			date_parts: list[str]  = date_str.split('-')
+			year: int = int(date_parts[0])
+			month: int = int(date_parts[1])
+			day: int = int(date_parts[2])
+			date_from_user: datetime = datetime.date(year=year, month=month, day=day)
+			notes_list: list[Note] = self.model.get_current_book().find_notes_by_date(date_from_user)
+			if len(notes_list) == 0:
+				self.view.display('Заметок не найдено!')
+				self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
+			else:
+				for note in notes_list:
+					self.view.display(str(note))
+				self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
+		except:
+			self.view.display('Неверный формат даты!')
 			self.view.user_waiting('Нажмите Enter чтобы продолжить..')

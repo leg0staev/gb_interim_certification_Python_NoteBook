@@ -21,8 +21,8 @@ class Note:
 				"--\n"\
 				f"Заметка: {self.body}\n" \
 				"--\n" \
-				f"Дата создания: {self.date_created}\n" \
-				f"Дата изменения: {self.date_modified}\n" \
+				f"Дата создания: {self.date_created.date()}\n" \
+				f"Дата изменения: {self.date_modified.date()}\n" \
 				"* * *\n"
 	def get_id(self) -> int:
 		return self.id
@@ -35,6 +35,12 @@ class Note:
 
 	def get_body(self) -> str:
 		return self.body
+
+	def get_created_date(self) -> datetime:
+		return self.date_created
+
+	def get_date_modified(self) -> datetime:
+		return self.date_modified
 
 	def serialize(self) -> dict:
 		return {
