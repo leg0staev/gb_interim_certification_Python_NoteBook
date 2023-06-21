@@ -15,8 +15,12 @@ if __name__ == '__main__':
                 presenter.save_notes_to_file()
             case '3':
                 presenter.load_notes_from_file()
+            case '4':
+                presenter.find_note_by_id()
+            case '5':
+                presenter.show_all_notes()
             case '0':
                 RUN = False
                 presenter.display('Программа завершила работу. До свидания!')
             case _:
-                presenter.display_wrong_choise('Такого пункта меню нет')
+                presenter.display_wrong_choise()

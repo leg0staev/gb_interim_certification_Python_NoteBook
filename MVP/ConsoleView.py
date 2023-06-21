@@ -5,12 +5,6 @@ from MVP.AbstractView import AbstractView
 
 class ConsoleView(AbstractView):
 
-	def get_note_title(self) -> str:
-		return str(input('Введите название заметки: '))
-
-	def get_note_body(self) -> str:
-		return str(input('Введите тело заметки: '))
-
 	def get_value(self, title: str) -> str:
 		return str(input(title))
 
@@ -23,8 +17,8 @@ class ConsoleView(AbstractView):
 1 - Добавить заметку
 2 - Сохранить заметки в файл
 3 - Загрузить заметки из файла
-4 - ...
-5 - ...
+4 - Найти заметку по ID
+5 - Показать все заметки
 6 - ...
 0 - Выход''')
 		print()
@@ -38,5 +32,5 @@ class ConsoleView(AbstractView):
 		else:
 			os.system('cls')
 
-	def user_waiting(self):
-		input('нажмите Enter чтобы вернуться в меню')
+	def user_waiting(self, waiting_message: str):
+		input(f'{waiting_message}')
