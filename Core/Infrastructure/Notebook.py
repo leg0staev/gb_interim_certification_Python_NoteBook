@@ -1,6 +1,5 @@
 import json
 from datetime import datetime
-from typing import Any
 
 from Core.Models.Note import Note
 
@@ -54,3 +53,10 @@ class Notebook:
 
 	def get_notes_list(self) -> list[Note]:
 		return self.notes_list
+
+	def remove_note_by_id(self, note_id: int) -> str:
+		for note in self.notes_list:
+			if note.get_id() == note_id:
+				self.notes_list.remove(note)
+				return f'заметка с id "{note_id}" удалена!'
+		return f'заметки с id "{note_id}" не существует'
