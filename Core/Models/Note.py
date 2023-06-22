@@ -14,7 +14,7 @@ class Note:
 		self.date_modified = date_modified
 
 	def __str__(self):
-		return  "* * *\n"\
+		return "* * *\n"\
 				f"ID: {self.id}\n" \
 				"--\n" \
 				f"Название: {self.title}\n" \
@@ -33,14 +33,23 @@ class Note:
 	def get_title(self) -> str:
 		return self.title
 
+	def set_title(self, new_title: str) -> None:
+		self.title = new_title
+
 	def get_body(self) -> str:
 		return self.body
+
+	def set_body(self, new_body: str) -> None:
+		self.body = new_body
 
 	def get_created_date(self) -> datetime:
 		return self.date_created
 
 	def get_date_modified(self) -> datetime:
 		return self.date_modified
+
+	def set_date_modified(self, new_dete: datetime) -> None:
+		self.date_modified = new_dete
 
 	def serialize(self) -> dict:
 		return {

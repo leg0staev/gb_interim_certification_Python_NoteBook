@@ -23,6 +23,8 @@ if __name__ == '__main__':
                 presenter.delete_note_by_id()
             case '7':
                 presenter.find_notes_by_date()
+            case '8':
+                presenter.edit_note_by_id()
             case '0':
                 RUN = False
                 presenter.display('Программа завершила работу. До свидания!')

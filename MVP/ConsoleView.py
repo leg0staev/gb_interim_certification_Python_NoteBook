@@ -1,5 +1,4 @@
 import os
-import platform
 from MVP.AbstractView import AbstractView
 
 
@@ -21,16 +20,13 @@ class ConsoleView(AbstractView):
 5 - Показать все заметки
 6 - Удалить заметку по ID
 7 - Вывести все заметки по дате создания
-8 - ...
-9 - ...
+8 - Изменить заметку по ID
 0 - Выход''')
 		print()
 		return str(input('ваш выбор > '))
 
 	def console_clear(self) -> None:
-		"""очистка консоли"""
-
-		if os.name == 'posix':  # для Unix-подобных систем (Linux, macOS)
+		if os.name == 'posix':
 			os.system('clear')
 		else:
 			os.system('cls')
