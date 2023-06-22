@@ -30,34 +30,30 @@ class Presenter:
 
 	def add_note(self) -> None:
 		self.view.console_clear()
-		self.model.get_current_book() \
-			.add_note(Note(id=1,
-							title=self.view.get_value('Введите название заметки: '),
-							body=self.view.get_value('Введите тело заметки: '),
-							date_created=datetime.datetime.now(),
-							date_modified=datetime.datetime.now()))
+		self.model.get_current_book().add_note(Note(id=1,
+													title=self.view.get_value('Введите название заметки: '),
+													body=self.view.get_value('Введите тело заметки: '),
+													date_created=datetime.datetime.now(),
+													date_modified=datetime.datetime.now()))
 		self.view.display('Заметка добавлена!')
 		self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 
 	def save_notes_to_file(self) -> None:
 		self.view.console_clear()
-		self.model.get_current_book() \
-			.save_notes_db_to_file()
+		self.model.get_current_book().save_notes_db_to_file()
 		self.view.display('Файл заметок сохранен!')
 		self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 
 	def load_notes_from_file(self) -> None:
 		self.view.console_clear()
-		self.view.display(self.model.get_current_book()
-									.load_notes_db_from_file())
+		self.view.display(self.model.get_current_book().load_notes_db_from_file())
 		self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 
 	def find_note_by_id(self) -> None:
 		self.view.console_clear()
 		try:
 			id_from_user: int = int(self.view.get_value('введите ID заметки для поиска: '))
-			self.view.display(self.model.get_current_book()
-										.find_note_by_id(id_from_user))
+			self.view.display(self.model.get_current_book().find_note_by_id(id_from_user))
 			self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 		except:
 			self.view.display('Заметки с таким ID нет..')
@@ -74,8 +70,7 @@ class Presenter:
 		self.view.console_clear()
 		try:
 			id_from_user: int = int(self.view.get_value('введите ID заметки для удаления: '))
-			self.view.display(self.model.get_current_book()
-										.remove_note_by_id(id_from_user))
+			self.view.display(self.model.get_current_book().remove_note_by_id(id_from_user))
 			self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 		except:
 			self.view.display('Заметки с таким ID нет..')
@@ -100,4 +95,21 @@ class Presenter:
 				self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
 		except:
 			self.view.display('Неверный формат даты!')
+			self.view.user_waiting('Нажмите Enter чтобы продолжить..')
+	def edit_note_by_id(self):
+		self.view.console_clear()
+		try:
+			id_from_user: int = int(self.view.get_value('введите ID заметки для изменения: '))
+			edited_note = self.model.get_current_book().find_note_by_id(id_from_user)
+			if isinstance(edited_note, Note):
+				self.view.display('вы выбрали заметку для изменения:\n')
+				self.view.display(str(edited_note))
+				new_note_body = self.view.get_value('введите новое тело заметки: ')
+				self.view.display(self.model.get_current_book().edit_note(edited_note, new_note_body))
+				self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
+			else:
+				self.view.display(edited_note)
+				self.view.user_waiting('Нажмите Enter чтобы вернуться в меню..')
+		except:
+			self.view.display('Заметки с таким ID нет..')
 			self.view.user_waiting('Нажмите Enter чтобы продолжить..')

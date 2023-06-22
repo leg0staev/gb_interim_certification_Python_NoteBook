@@ -55,10 +55,10 @@ class Notebook:
 		return self.notes_list
 
 	def remove_note_by_id(self, note_id: int) -> str:
-		for note in self.notes_list:
-			if note.get_id() == note_id:
-				self.notes_list.remove(note)
-				return f'заметка с id "{note_id}" удалена!'
+		note_to_del = self.find_note_by_id(note_id)
+		if isinstance(note_to_del, Note):
+			self.notes_list.remove(note_to_del)
+			return f'заметка с id "{note_id}" удалена!'
 		return f'заметки с id "{note_id}" не существует'
 
 	def find_notes_by_date(self, date: datetime.date) -> list[Note]:
@@ -67,3 +67,12 @@ class Notebook:
 			if note.date_created.date() == date:
 				result_notes_list.append(note)
 		return result_notes_list
+
+	def edit_note(self, note_to_edit: Note, new_body: str) -> str:
+		note_id = note_to_edit.get_id()
+		index_to_edit = self.notes_list.index(note_to_edit)
+		edited_note = self.notes_list.pop(index_to_edit)
+		edited_note.set_body(new_body)
+		edited_note.set_date_modified(datetime.now())
+		self.notes_list.insert(index_to_edit, edited_note)
+		return f'заметка с id "{note_id}" изменена!'
